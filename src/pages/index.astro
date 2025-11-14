@@ -1,48 +1,121 @@
 ---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
+import HeroImage from '../assets/blog-placeholder-5.jpg';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { teamMembers } from '../member';
+
+const posts = (await getCollection('blog'))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 3);
+
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
 		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+		<main class="mx-auto w-full max-w-6xl px-4 py-12">
+			<section class="grid gap-12 py-12 lg:grid-cols-2 lg:items-center">
+				<div class="space-y-6">
+					<p class="text-sm font-semibold uppercase tracking-[0.2em] text-muted">IBAS DEV TECH BLOG</p>
+					<h1 class="text-4xl font-semibold text-ink sm:text-3xl lg:text-4xl">기술, 협업, 그리고 성장. <br />
+						IBAS 개발팀이 배우고 경험한 <br /> 모든 것을 이곳에 남깁니다.</h1>
+					<p class="text-lg text-muted">
+						{SITE_DESCRIPTION} <br /> 실제 프로젝트를 만들며 마주한 문제와 해결 과정,
+						그리고 개발팀의 고민을 꾸준히 기록합니다.
+						
+					</p>
+					<div class="flex flex-wrap gap-4">
+						<a class="inline-flex items-center justify-center rounded-sm border-2 border-accent bg-accent px-6 py-3 font-semibold text-white transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-accent" href="/blog">
+							→ Blog 보기
+						</a>
+						<a class="inline-flex items-center justify-center rounded-sm border-2 border-accent/30 bg-white/85 px-6 py-3 font-semibold text-ink transition hover:-translate-y-0.5 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/30 focus-visible:ring-offset-2 focus-visible:ring-offset-white" href="/about">
+							→ 개발팀 소개 보기
+						</a>
+					</div>
+				</div>
+				<div class="text-center">
+					<Image
+						class="mx-auto rounded-[24px] shadow-glow"
+						src={HeroImage}
+						alt="IBAS DEV 팀이 기술 문서를 협업 작성하는 모습을 형상화한 일러스트"
+						width={640}
+						height={640}
+						loading="eager"
+					/>
+				</div>
+			</section>
+
+			<section class="py-8">
+				<div class="flex flex-wrap items-center justify-between gap-4">
+					<div>
+						<h2 class="text-2xl font-semibold text-ink sm:text-3xl">Recent Posts</h2>
+						<p class="text-muted">최근 작성된 글 3개를 바로 확인해 보세요.</p>
+					</div>
+					<a class="text-sm font-semibold text-accent transition hover:text-accent-light" href="/blog">
+						모든 글 보기 →
+					</a>
+				</div>
+
+				{posts.length ? (
+					<ul class="mt-8 grid gap-6 md:grid-cols-3">
+						{posts.map((post) => (
+							<li class="rounded-2xl border border-muted-light bg-white/90 p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-glow">
+								<a class="flex h-full flex-col gap-4 no-underline" href={`/blog/${post.id}/`}>
+									<p class="text-sm font-medium text-muted">
+										<FormattedDate date={post.data.pubDate} />
+									</p>
+									<h3 class="text-xl font-semibold text-ink">{post.data.title}</h3>
+									<p class="text-base text-muted">
+										{post.data.description ?? '이 글에 대한 설명이 곧 업데이트됩니다.'}
+									</p>
+								</a>
+							</li>
+						))}
+					</ul>
+				) : (
+					<p class="mt-6 text-muted">아직 게시된 글이 없습니다. 곧 새로운 콘텐츠로 찾아뵐게요!</p>
+				)}
+			</section>
+
+			<section class="py-8">
+				<div class="mb-8">
+					<h2 class="text-2xl font-semibold text-ink sm:text-3xl">Introduce Our Team</h2>
+					<p class="text-muted">IBAS DEV를 움직이는 사람들을 소개합니다.</p>
+				</div>
+				<div class="grid gap-6 md:grid-cols-3">
+					{teamMembers.map((member) => (
+						<a
+							class="group flex flex-col gap-4 rounded-2xl border border-muted-light bg-white/90 p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/25 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+							href={member.link}
+							target="_blank"
+							rel="noreferrer"
+						>
+							<div class="flex items-center gap-4">
+								<div class="flex h-12 w-12 items-center justify-center rounded-full bg-ink text-base font-semibold text-white" aria-hidden="true">
+									{member.initials}
+								</div>
+								<div>
+									<h3 class="text-lg font-semibold text-ink">{member.name}</h3>
+									<p class="text-sm font-medium text-accent">{member.role}</p>
+								</div>
+							</div>
+							<p class="flex-1 text-base text-muted">{member.bio}</p>
+							<span class="inline-flex items-center gap-2 text-sm font-semibold text-accent transition group-hover:gap-3">
+								GitHub 보기 →
+							</span>
+						</a>
+					))}
+				</div>
+			</section>
 		</main>
 		<Footer />
 	</body>
