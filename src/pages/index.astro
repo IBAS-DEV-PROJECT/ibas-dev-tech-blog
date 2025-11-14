@@ -23,31 +23,30 @@ const posts = (await getCollection('blog'))
 	<body>
 		<Header />
 		<main class="mx-auto w-full max-w-6xl px-4 py-12">
-			<section class="grid gap-12 py-12 lg:grid-cols-2 lg:items-center">
-				<div class="space-y-6">
+			<section class="flex flex-col gap-12 py-12 lg:flex-row lg:items-center">
+				<div class="flex-grow space-y-6">
 					<p class="text-sm font-semibold uppercase tracking-[0.2em] text-muted">IBAS DEV TECH BLOG</p>
-					<h1 class="text-4xl font-semibold text-ink sm:text-3xl lg:text-4xl">기술, 협업, 그리고 성장. <br />
-						IBAS 개발팀이 배우고 경험한 <br /> 모든 것을 이곳에 남깁니다.</h1>
+					<h1 class="text-3xl font-semibold text-ink sm:text-xl lg:text-2xl">기술, 협업, 그리고 성장. <br />
+						IBAS 개발팀이 배우고 경험한 모든 것을 이곳에 남깁니다.</h1>
 					<p class="text-lg text-muted">
-						{SITE_DESCRIPTION} <br /> 실제 프로젝트를 만들며 마주한 문제와 해결 과정,
-						그리고 개발팀의 고민을 꾸준히 기록합니다.
+						실제 프로젝트를 만들며 마주한 문제와 해결 과정, <br /> 그리고 개발팀의 고민을 꾸준히 기록합니다.
 						
 					</p>
 					<div class="flex flex-wrap gap-4">
-						<a class="inline-flex items-center justify-center rounded-sm border-2 border-accent bg-accent px-6 py-3 font-semibold text-white transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-accent" href="/blog">
-							→ Blog 보기
+						<a class="inline-flex items-center justify-center rounded-sm border-2 border-accent bg-accent px-6 py-3 font-semibold text-white transition hover:-translate-y-0.5" href="/blog">
+							Blog 보기
 						</a>
 						<a class="inline-flex items-center justify-center rounded-sm border-2 border-accent/30 bg-white/85 px-6 py-3 font-semibold text-ink transition hover:-translate-y-0.5 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/30 focus-visible:ring-offset-2 focus-visible:ring-offset-white" href="/about">
-							→ 개발팀 소개 보기
+							개발팀 소개
 						</a>
 					</div>
 				</div>
-				<div class="text-center">
+				<div class="flex-grow text-center">
 					<Image
-						class="mx-auto rounded-[24px] shadow-glow"
+						class="mx-auto rounded-[12px] shadow-glow"
 						src={HeroImage}
 						alt="IBAS DEV 팀이 기술 문서를 협업 작성하는 모습을 형상화한 일러스트"
-						width={640}
+						width={512}
 						height={640}
 						loading="eager"
 					/>
@@ -58,7 +57,7 @@ const posts = (await getCollection('blog'))
 				<div class="flex flex-wrap items-center justify-between gap-4">
 					<div>
 						<h2 class="text-2xl font-semibold text-ink sm:text-3xl">Recent Posts</h2>
-						<p class="text-muted">최근 작성된 글 3개를 바로 확인해 보세요.</p>
+						<p class="text-muted">최근에 기록한 이야기들을 모아두었습니다.</p>
 					</div>
 					<a class="text-sm font-semibold text-accent transition hover:text-accent-light" href="/blog">
 						모든 글 보기 →
@@ -68,7 +67,7 @@ const posts = (await getCollection('blog'))
 				{posts.length ? (
 					<ul class="mt-8 grid gap-6 md:grid-cols-3">
 						{posts.map((post) => (
-							<li class="rounded-2xl border border-muted-light bg-white/90 p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-glow">
+							<li class="rounded-2xl border border-muted-light bg-white/90 p-6 shadow-sm transition hover:-translate-y-1">
 								<a class="flex h-full flex-col gap-4 no-underline" href={`/blog/${post.id}/`}>
 									<p class="text-sm font-medium text-muted">
 										<FormattedDate date={post.data.pubDate} />
@@ -89,12 +88,12 @@ const posts = (await getCollection('blog'))
 			<section class="py-8">
 				<div class="mb-8">
 					<h2 class="text-2xl font-semibold text-ink sm:text-3xl">Introduce Our Team</h2>
-					<p class="text-muted">IBAS DEV를 움직이는 사람들을 소개합니다.</p>
+					<p class="text-muted">IBAS DEV를 함께 만들어가는 사람들을 소개합니다.</p>
 				</div>
 				<div class="grid gap-6 md:grid-cols-3">
 					{teamMembers.map((member) => (
 						<a
-							class="group flex flex-col gap-4 rounded-2xl border border-muted-light bg-white/90 p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/25 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+							class="group flex flex-col gap-4 rounded-2xl border border-muted-light bg-white/90 p-6 shadow-sm transition hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/25 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
 							href={member.link}
 							target="_blank"
 							rel="noreferrer"
