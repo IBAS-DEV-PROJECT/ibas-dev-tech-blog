@@ -19,12 +19,16 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 
 	<body class="bg-white">
 		<Header />
-		<main class="w-full max-w-[960px] px-4 py-12">
-			<article>
-				<div class="w-full">
-					{heroImage && <Image class="mx-auto block max-w-full rounded-xl shadow-[var(--box-shadow)]" width={1020} height={510} src={heroImage} alt="" />}
+		<main class="w-full max-w-[960px] px-4 py-12 sm:px-6">
+			<article class="space-y-8">
+				<div class="w-full text-center">
+					{heroImage && (
+						<div class="inline-block w-full overflow-hidden rounded-3xl border border-muted-light">
+							<Image class="mx-auto block max-w-full object-cover" width={1020} height={510} src={heroImage} alt="" />
+						</div>
+					)}
 				</div>
-				<div class="mx-auto mt-8 w-full max-w-[720px] px-3 text-[color:rgb(var(--gray-dark))]">
+				<div class="mx-auto w-full max-w-[720px] px-3 text-[color:rgb(var(--gray-dark))]">
 					<div class="mb-6 border-b border-muted-light pb-6 text-center leading-tight">
 						<div class="mb-4 text-sm text-muted">
 							<p>

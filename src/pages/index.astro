@@ -5,8 +5,9 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
-import HeroImage from '../assets/blog-placeholder-5.jpg';
+import HeroImage from '../assets/main.jpg';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { PROJECT_TAGS } from '../data/projectTags';
 import { teamMembers } from '../data/teamMembers';
 
 const posts = (await getCollection('blog'))
@@ -41,7 +42,7 @@ const posts = (await getCollection('blog'))
 						</a>
 					</div>
 				</div>
-				<div class="flex-grow text-center">
+				<div class="flex-grow text-center hidden lg:block">
 					<Image
 						class="mx-auto rounded-[12px] shadow-glow"
 						src={HeroImage}
@@ -65,17 +66,37 @@ const posts = (await getCollection('blog'))
 				</div>
 
 				{posts.length ? (
-					<ul class="mt-8 grid gap-6 md:grid-cols-3">
+					<ul class="mt-8 space-y-4">
 						{posts.map((post) => (
-							<li class="rounded-2xl border border-muted-light bg-white/90 p-6 shadow-sm transition hover:-translate-y-1">
-								<a class="flex h-full flex-col gap-4 no-underline" href={`/blog/${post.id}/`}>
-									<p class="text-sm font-medium text-muted">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-									<h3 class="text-xl font-semibold text-ink">{post.data.title}</h3>
-									<p class="text-base text-muted">
-										{post.data.description ?? '이 글에 대한 설명이 곧 업데이트됩니다.'}
-									</p>
+							<li class="rounded-3xl border border-muted-light bg-white/95 p-4 shadow-sm">
+								<a class="flex flex-col gap-4 no-underline md:flex-row md:items-start" href={`/blog/${post.id}/`}>
+									<div class="h-40 overflow-hidden rounded-2xl bg-muted-light md:h-32 md:w-40">
+										{post.data.heroImage ? (
+											<Image class="h-full w-full object-cover" width={320} height={200} src={post.data.heroImage} alt="" />
+										) : (
+											<div class="flex h-full w-full items-center justify-center text-sm text-muted">IBAS</div>
+										)}
+									</div>
+									<div class="flex-1 space-y-2">
+										<div class="flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-muted">
+											<FormattedDate date={post.data.pubDate} />
+											{post.data.tags?.slice(0, 1).map((tagId) => {
+												const tag = PROJECT_TAGS.find((item) => item.id === tagId);
+												return tag ? (
+													<span
+														class:list={[
+															'rounded-full px-3 py-1 text-[0.65rem]',
+															tag.colorClass ?? 'bg-accent/10 text-accent',
+														]}
+													>
+														{tag.label}
+													</span>
+												) : null;
+											})}
+										</div>
+										<h3 class="text-lg font-semibold text-ink">{post.data.title}</h3>
+										<p class="text-sm text-muted">{post.data.description ?? '이 글에 대한 설명이 곧 업데이트됩니다.'}</p>
+									</div>
 								</a>
 							</li>
 						))}
