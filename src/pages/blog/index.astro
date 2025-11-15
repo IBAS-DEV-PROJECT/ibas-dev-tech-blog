@@ -37,12 +37,12 @@ const posts = (await getCollection('blog')).sort(
 					<ul class="mt-8 space-y-5">
 						{posts.map((post) => (
 							<li class="rounded-3xl border border-muted-light bg-white/95 p-4 shadow-sm">
-								<a class="flex flex-col gap-4 no-underline md:flex-row md:items-start" href={`/blog/${post.id}/`}>
-									<div class="h-40 overflow-hidden rounded-2xl bg-muted-light md:h-32 md:w-40">
+								<a class="flex flex-col gap-4 no-underline md:flex-row md:items-stretch" href={`/blog/${post.id}/`}>
+									<div class="w-full overflow-hidden rounded-2xl bg-muted-light md:w-40 md:shrink-0">
 										{post.data.heroImage ? (
-											<Image class="h-full w-full object-cover" width={320} height={200} src={post.data.heroImage} alt="" />
+											<Image class="aspect-video h-full w-full object-cover md:aspect-auto" widths={[320, 640, 960]} sizes="(max-width: 768px) 100vw, 160px" src={post.data.heroImage} alt="" />
 										) : (
-											<div class="flex h-full w-full items-center justify-center text-sm text-muted">IBAS</div>
+											<div class="flex aspect-video h-full w-full items-center justify-center text-sm text-muted md:aspect-auto">IBAS</div>
 										)}
 									</div>
 									<div class="flex-1 space-y-3">
@@ -64,6 +64,7 @@ const posts = (await getCollection('blog')).sort(
 											})}
 										</div>
 										<h2 class="text-xl font-semibold text-ink sm:text-2xl">{post.data.title}</h2>
+										<p class="text-base text-violet-500">by. {post.data.author?.name}</p>
 										<p class="text-base text-muted">
 											{post.data.description ?? '이 글에 대한 설명이 곧 업데이트됩니다.'}
 										</p>
@@ -73,9 +74,11 @@ const posts = (await getCollection('blog')).sort(
 						))}
 					</ul>
 				) : (
-					<p class="rounded-2xl border border-dashed border-muted-light bg-white/40 p-6 text-center text-muted">
-						작성된 글이 아직 없습니다. 곧 새로운 글로 찾아뵐게요!
-					</p>
+				<div class="mt-8 rounded-3xl border border-dashed border-muted-light bg-white/60 p-12 text-center">
+						<p class="text-4xl">📝</p>
+						<p class="mt-3 text-lg font-semibold text-ink">작성된 글이 아직 없습니다.</p>
+						<p class="mt-1 text-sm text-muted">곧 새로운 글로 찾아뵐게요!</p>
+					</div>
 				)}
 			</section>
 		</main>

@@ -9,7 +9,7 @@ import Header from '../components/Header.astro';
 type BlogData = CollectionEntry<'blog'>['data'];
 type Props = Omit<BlogData, 'tags'> & { tags?: BlogData['tags'] };
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, author } = Astro.props;
 ---
 
 <html lang="en">
@@ -30,16 +30,30 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				</div>
 				<div class="mx-auto w-full max-w-[720px] px-3 text-[color:rgb(var(--gray-dark))]">
 					<div class="mb-6 border-b border-muted-light pb-6 text-center leading-tight">
-						<div class="mb-4 text-sm text-muted">
-							<p>
-								<FormattedDate date={pubDate} />
-							</p>
-							{updatedDate && (
-								<p class="italic text-muted">
-									Last updated on <FormattedDate date={updatedDate} />
-								</p>
+					<div class="mb-4 space-y-1 text-sm text-muted">
+						<div class="flex flex-wrap items-center justify-center gap-2 text-[0.85rem]">
+							<FormattedDate date={pubDate} />
+							{author && (
+								<>
+									<span>·</span>
+									<span>
+										{author.url ? (
+											<a href={author.url} target="_blank" rel="noreferrer">
+												{author.name}
+											</a>
+										) : (
+											<span>{author.name}</span>
+										)}
+									</span>
+								</>
 							)}
 						</div>
+						{updatedDate && (
+							<p class="italic text-muted">
+								Last updated on <FormattedDate date={updatedDate} />
+							</p>
+						)}
+					</div>
 						<h1 class="mb-2 text-3xl font-semibold text-ink">{title}</h1>
 					</div>
 					<div class="prose mx-auto max-w-none text-[color:rgb(var(--gray-dark))]">
