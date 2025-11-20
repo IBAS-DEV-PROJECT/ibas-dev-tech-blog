@@ -2,7 +2,6 @@
 title: 'Feature-Sliced Design(FSD)란?'
 description: 'React·Next.js 프로젝트에서 기능 중심으로 코드를 구조화하는 FSD 개념과 레이어별 역할을 정리한 가이드입니다.'
 pubDate: 'Nov 20 2025'
-updatedDate: 'Nov 20 2025'
 heroImage: '../../assets/fsd.jpg'
 author:
   name: 'haewonwon'
@@ -104,7 +103,7 @@ Feature-Sliced Design은 기존의 페이지 중심 구조가 갖는 단점을 �
 
 UI(페이지)는 시간이 지나면 변경되지만, 비즈니스 기능은 오랜 기간 유지되고 확장되기 때문에 기능 중심 구조(FSD)가 더 안정적입니다.
 
-# 페이지 단위 개발과 FSD는 서로 대체 관계가 아닙니다
+## 페이지 단위 개발과 FSD는 서로 대체 관계가 아닙니다
 
 중요한 점은, FSD는 페이지 단위 개발을 부정하는 것이 아니라 “보완”하는 구조라는 점입니다.
 
