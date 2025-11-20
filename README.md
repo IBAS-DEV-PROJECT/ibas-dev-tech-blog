@@ -44,9 +44,13 @@ npm run dev
 ### 2-2. Frontmatter 템플릿
 
 - 파일 최상단에는 반드시 아래 형식(Frontmatter)을 넣는다.
-- `tags` 는 선택값이지만, 되도록 프로젝트 기준 태그 ID 중 하나 이상을 고른다.
+- `author`, `updatedDate`, `heroImage`, `tags`는 선택값이지만, 되도록 작성한다.
 
-  - 사용 가능한 ID: `ibas`, `incherin`, `spoti-test`, `joalarm`, `misc` (정의: `src/data/projectTags.ts`)
+  - `tags`: 프로젝트 기준 태그 ID 중 하나 이상을 고른다.
+    - 사용 가능한 ID: `ibas`, `incherin`, `spoti-test`, `joalarm`, `misc` (정의: `src/data/projectTags.ts`)
+  - `author`: 작성자 정보를 넣는다 (선택, 없으면 지워도 됨)
+    - `name`: 작성자 이름 (필수)
+    - `url`: 작성자 프로필 링크 (선택)
 
   ```md
   ---
@@ -54,6 +58,9 @@ npm run dev
   description: '요약 문장 (리스트/목적)'
   pubDate: 'Jun 19 2024' # 월 이름 3글자 + 일 + 연도 (영문)
   updatedDate: 'Jun 25 2024' # 선택, 없으면 지워도 됨
+  author: # 선택, 없으면 지워도 됨
+    name: '김해원'
+    url: 'https://github.com/haewonwon' # 선택
   heroImage: '../../assets/blog-placeholder-1.jpg' # 이미지가 있으면 경로 기입
   tags:
     - ibas # src/data/projectTags.ts에 정의된 id 중 선택
