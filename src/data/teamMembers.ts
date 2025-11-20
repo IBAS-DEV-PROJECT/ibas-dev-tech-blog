@@ -15,7 +15,7 @@ export const teamMembers = [
   },
   {
     name: '김서현',
-    role: 'Lead Frontend Engineer',
+    role: 'Frontend Engineer',
     bio: '사용자 경험 중심의 UI·UX를 설계하고 더 나은 화면 구조와 흐름을 만듭니다.',
     initials: 'SH',
     link: 'https://github.com/seohyeon0219',
