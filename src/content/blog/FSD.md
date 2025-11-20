@@ -5,7 +5,7 @@ pubDate: 'Nov 20 2025'
 updatedDate: 'Nov 20 2025'
 heroImage: '../../assets/fsd.jpg'
 author:
-  name: haewonwon
+  name: 'haewonwon'
 tags:
   - incherin
 ---
