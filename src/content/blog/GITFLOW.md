@@ -2,7 +2,7 @@
 title: 'ESLint&Prettier와 Git 협업 규칙'
 description: '프로젝트 초기에 반드시 설정해야 할 ESLint&Prettier와 Git 협업 전략을 정리한 가이드입니다.'
 pubDate: 'Nov 22 2025'
-heroImage: '../../assets/fsd.jpg'
+heroImage: '../../assets/gitflow.png'
 author:
   name: 'seohyeon'
 tags:
@@ -48,16 +48,14 @@ tags:
 ```bash
 pnpm lint         # 전체 검사
 pnpm lint -- --fix  # 자동 수정
-```
 ### 예시
 
 ```ts
-const a = 1;
+heroImage: '../../assets/gitflow.png'
 const b = 2;
 
 if (a == b) {
     console.log("같다");
-}
 ```
 
 `==`는 타입 비교가 느슨해 위험하므로 ESLint는 경고를 띄워줍니다.
@@ -198,3 +196,6 @@ GitHub 기반 협업(특히 PR 중심)에 최적화된 단순하고 현대적인
 - 큰 조직/프로젝트에서는 배포 관리에 추가 도구가 필요할 수 있음
 
 
+---
+### 출처
+https://medium.com/addweb-engineering/workflows-comparison-github-flow-vs-git-flow-3cd811f3d0ae
